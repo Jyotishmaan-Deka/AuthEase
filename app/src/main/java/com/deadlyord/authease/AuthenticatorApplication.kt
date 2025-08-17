@@ -1,9 +1,7 @@
 package com.deadlyord.authease
 
 import android.app.Application
-import com.deadlyord.authease.di.AppModule
+import dagger.hilt.android.HiltAndroidApp
 
-
-class AuthenticatorApplication : Application() {
-    val appModule = AppModule
-}
+@HiltAndroidApp
+class AuthenticatorApplication : Application()

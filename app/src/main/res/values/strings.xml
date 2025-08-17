@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AuthEase</string>
+    <string name="add_account">Add Account</string>
+    <string name="issuer">Issuer</string>
+    <string name="account_name">Account Name</string>
+    <string name="secret_key">Secret Key</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="no_accounts">No accounts added yet.\nTap + to add your first account.</string>
+    <string name="authenticator">Authenticator</string>
 </resources>

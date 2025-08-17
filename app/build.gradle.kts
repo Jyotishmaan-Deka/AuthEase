@@ -1,8 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
+    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
 }
+
 
 android {
     namespace = "com.deadlyord.authease"
@@ -35,9 +37,13 @@ android {
         jvmTarget = "11"
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
+
+//    kapt {
+//        correctErrorTypes = true
+//    }
 }
 
 dependencies {
@@ -58,12 +64,15 @@ dependencies {
     // Room (DB)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.room.compiler)
-    kapt(libs.androidx.room.compiler)
+//    kapt(libs.androidx.room.compiler)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
+    // Hilt
+    implementation(libs.hilt.android)
+//    kapt(libs.hilt.compiler)
 
     // Security & Biometric
     implementation(libs.androidx.security.crypto)
@@ -79,4 +88,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    ksp(libs.androidx.room.compiler)
+    ksp(libs.hilt.compiler)
+
 }
