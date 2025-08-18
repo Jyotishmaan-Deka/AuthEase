@@ -274,12 +274,6 @@ SOFTWARE.
 - **Discussions**: [GitHub Discussions](https://github.com/yourusername/authease/discussions)
 - **Email**: support@authease.app
 
-## 📊 Stats
-
-![GitHub stars](https://img.shields.io/github/stars/yourusername/authease?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/authease?style=social)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/authease)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/authease)
 
 ---
 
