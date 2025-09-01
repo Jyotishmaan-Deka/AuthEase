@@ -1,10 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.android)
-    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
 }
-
 
 android {
     namespace = "com.deadlyord.authease"
@@ -30,23 +29,23 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     buildFeatures {
         viewBinding = true
     }
-
-//    kapt {
-//        correctErrorTypes = true
-//    }
 }
 
 dependencies {
+    // Core Library Desugaring
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
     // Core & UI
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -61,10 +60,10 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
 
-    // Room (DB)
+    // Room (DB) - Use kapt
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-//    kapt(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)  // Add kapt for Room too
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
@@ -72,7 +71,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
-//    kapt(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)  // Add kapt for Hilt
 
     // Security & Biometric
     implementation(libs.androidx.security.crypto)
@@ -88,8 +87,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    ksp(libs.androidx.room.compiler)
-    ksp(libs.hilt.compiler)
-
 }

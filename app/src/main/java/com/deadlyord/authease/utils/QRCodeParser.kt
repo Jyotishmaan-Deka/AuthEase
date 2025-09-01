@@ -21,6 +21,10 @@ object QRCodeParser {
             val accountName = if (parts.size > 1) parts[1] else parts[0]
 
             val secret = parsedUri.getQueryParameter("secret") ?: return null
+
+            // Validate Base32 secret
+            if (!secret.isValidBase32()) return null
+
             val algorithm = parsedUri.getQueryParameter("algorithm") ?: "SHA1"
             val digits = parsedUri.getQueryParameter("digits")?.toIntOrNull() ?: 6
             val period = parsedUri.getQueryParameter("period")?.toIntOrNull() ?: 30

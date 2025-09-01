@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.deadlyord.authease.R
 import com.deadlyord.authease.databinding.FragmentAddAccountBinding
+import com.deadlyord.authease.utils.isValidBase32
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -62,13 +64,30 @@ class AddAccountFragment : Fragment() {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: android.text.Editable?) {
-                    viewModel.updateSecret(s.toString())
+                    val secret = s.toString().trim().uppercase()
+                    viewModel.updateSecret(secret)
                     viewModel.clearError()
+
+                    // Validate Base32 in real-time
+                    if (secret.isNotEmpty() && !secret.isValidBase32()) {
+                        editTextSecret.error = "Invalid Base32 format"
+                    } else {
+                        editTextSecret.error = null
+                    }
                 }
             })
 
             buttonAddAccount.setOnClickListener {
+                val secret = editTextSecret.text.toString().trim().uppercase()
+                if (secret.isNotEmpty() && !secret.isValidBase32()) {
+                    Toast.makeText(requireContext(), "Invalid Base32 secret key format", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 viewModel.addAccount()
+            }
+
+            buttonScanQr.setOnClickListener {
+                findNavController().navigate(R.id.action_addAccountFragment_to_qrScannerFragment)
             }
         }
     }

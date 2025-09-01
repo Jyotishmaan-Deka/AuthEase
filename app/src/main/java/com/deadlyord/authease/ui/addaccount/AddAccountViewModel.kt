@@ -1,10 +1,14 @@
 package com.deadlyord.authease.ui.addaccount
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.deadlyord.authease.auth.CryptoHelper
 import com.deadlyord.authease.db.AccountDao
 import com.deadlyord.authease.db.AccountEntity
+import com.deadlyord.authease.utils.isValidBase32
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddAccountViewModel @Inject constructor(
-    private val accountDao: AccountDao
+    private val accountDao: AccountDao,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AddAccountUiState())
@@ -23,6 +28,8 @@ class AddAccountViewModel @Inject constructor(
 
     private val _navigationEvent = MutableSharedFlow<NavigationEvent>()
     val navigationEvent = _navigationEvent.asSharedFlow()
+
+    private val cryptoHelper = CryptoHelper(context)
 
     fun updateIssuer(issuer: String) {
         _uiState.value = _uiState.value.copy(issuer = issuer)
@@ -44,18 +51,38 @@ class AddAccountViewModel @Inject constructor(
             return
         }
 
+        val cleanSecret = state.secret.trim().uppercase().replace(" ", "")
+
+        if (!cleanSecret.isValidBase32()) {
+            _uiState.value = state.copy(error = "Invalid Base32 secret key format")
+            return
+        }
+
+        _uiState.value = state.copy(isLoading = true, error = null)
+
         viewModelScope.launch {
             try {
+                // Encrypt the secret key before storing
+                val encryptedSecret = try {
+                    cryptoHelper.encrypt(cleanSecret)
+                } catch (e: Exception) {
+                    // If encryption fails, store as plain text (fallback)
+                    cleanSecret
+                }
+
                 val account = AccountEntity(
                     issuer = state.issuer.trim(),
                     accountName = state.accountName.trim(),
-                    secretKey = state.secret.trim()
+                    secretKey = encryptedSecret
                 )
 
                 accountDao.insertAccount(account)
                 _navigationEvent.emit(NavigationEvent.NavigateBack)
             } catch (e: Exception) {
-                _uiState.value = state.copy(error = "Failed to add account: ${e.message}")
+                _uiState.value = state.copy(
+                    error = "Failed to add account: ${e.message}",
+                    isLoading = false
+                )
             }
         }
     }

@@ -2,4 +2,7 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+    // Add the Kotlin KAPT plugin here too
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.hilt.android) apply false
 }

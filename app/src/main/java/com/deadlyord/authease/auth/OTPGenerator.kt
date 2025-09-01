@@ -1,6 +1,5 @@
 package com.deadlyord.authease.auth
 
-import android.util.Base64
 import java.nio.ByteBuffer
 import java.security.InvalidKeyException
 import java.security.NoSuchAlgorithmException
@@ -12,6 +11,33 @@ object OTPGenerator {
     private const val HMAC_SHA1 = "HmacSHA1"
     private const val HMAC_SHA256 = "HmacSHA256"
     private const val HMAC_SHA512 = "HmacSHA512"
+
+    // Base32 decoding
+    private fun decodeBase32(encoded: String): ByteArray {
+        val cleanInput = encoded.uppercase().replace("=", "")
+        val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
+
+        val outputLength = (cleanInput.length * 5) / 8
+        val output = ByteArray(outputLength)
+        var buffer = 0
+        var bitsLeft = 0
+        var count = 0
+
+        for (char in cleanInput) {
+            val value = alphabet.indexOf(char)
+            if (value < 0) throw IllegalArgumentException("Invalid Base32 character: $char")
+
+            buffer = (buffer shl 5) or value
+            bitsLeft += 5
+
+            if (bitsLeft >= 8) {
+                output[count++] = (buffer shr (bitsLeft - 8)).toByte()
+                bitsLeft -= 8
+            }
+        }
+
+        return output.sliceArray(0 until count)
+    }
 
     @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)
     private fun generateOTP(
@@ -47,12 +73,16 @@ object OTPGenerator {
         digits: Int = 6,
         algorithm: String = "SHA1"
     ): String {
-        val key = Base64.decode(secret, Base64.DEFAULT)
-        val time = System.currentTimeMillis() / 1000L
-        val timeSteps = time / timeStep
+        return try {
+            val key = decodeBase32(secret)
+            val time = System.currentTimeMillis() / 1000L
+            val timeSteps = time / timeStep
 
-        val timeBytes = ByteBuffer.allocate(8).putLong(timeSteps).array()
-        return generateOTP(key, timeBytes, digits, algorithm)
+            val timeBytes = ByteBuffer.allocate(8).putLong(timeSteps).array()
+            generateOTP(key, timeBytes, digits, algorithm)
+        } catch (e: Exception) {
+            "000000" // Return default on error
+        }
     }
 
     fun generateHOTP(
@@ -61,9 +91,13 @@ object OTPGenerator {
         digits: Int = 6,
         algorithm: String = "SHA1"
     ): String {
-        val key = Base64.decode(secret, Base64.DEFAULT)
-        val counterBytes = ByteBuffer.allocate(8).putLong(counter).array()
-        return generateOTP(key, counterBytes, digits, algorithm)
+        return try {
+            val key = decodeBase32(secret)
+            val counterBytes = ByteBuffer.allocate(8).putLong(counter).array()
+            generateOTP(key, counterBytes, digits, algorithm)
+        } catch (e: Exception) {
+            "000000" // Return default on error
+        }
     }
 
     fun getRemainingTime(timeStep: Long = 30): Long {

@@ -24,6 +24,21 @@
         android:id="@+id/addAccountFragment"
         android:name="com.deadlyord.authease.ui.addaccount.AddAccountFragment"
         android:label="Add Account"
-        tools:layout="@layout/fragment_add_account" />
+        tools:layout="@layout/fragment_add_account">
+
+        <action
+            android:id="@+id/action_addAccountFragment_to_qrScannerFragment"
+            app:destination="@id/qrScannerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/qrScannerFragment"
+        android:name="com.deadlyord.authease.ui.scanner.QRScannerFragment"
+        android:label="Scan QR Code"
+        tools:layout="@layout/fragment_qr_scanner" />
 
 </navigation>
