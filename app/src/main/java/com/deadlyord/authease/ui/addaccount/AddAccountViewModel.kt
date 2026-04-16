@@ -31,28 +31,22 @@ class AddAccountViewModel @Inject constructor(
 
     private val cryptoHelper = CryptoHelper(context)
 
-    fun updateIssuer(issuer: String) {
-        _uiState.value = _uiState.value.copy(issuer = issuer)
-    }
-
-    fun updateAccountName(accountName: String) {
-        _uiState.value = _uiState.value.copy(accountName = accountName)
-    }
-
-    fun updateSecret(secret: String) {
-        _uiState.value = _uiState.value.copy(secret = secret)
-    }
+    fun updateIssuer(issuer: String) { _uiState.value = _uiState.value.copy(issuer = issuer) }
+    fun updateAccountName(name: String) { _uiState.value = _uiState.value.copy(accountName = name) }
+    fun updateSecret(secret: String) { _uiState.value = _uiState.value.copy(secret = secret) }
+    fun updateAlgorithm(algorithm: String) { _uiState.value = _uiState.value.copy(algorithm = algorithm) }
+    fun updateDigits(digits: Int) { _uiState.value = _uiState.value.copy(digits = digits) }
+    fun clearError() { _uiState.value = _uiState.value.copy(error = null) }
 
     fun addAccount() {
         val state = _uiState.value
 
         if (state.issuer.isBlank() || state.accountName.isBlank() || state.secret.isBlank()) {
-            _uiState.value = state.copy(error = "Please fill all fields")
+            _uiState.value = state.copy(error = "Please fill in all required fields")
             return
         }
 
         val cleanSecret = state.secret.trim().uppercase().replace(" ", "")
-
         if (!cleanSecret.isValidBase32()) {
             _uiState.value = state.copy(error = "Invalid Base32 secret key format")
             return
@@ -62,18 +56,18 @@ class AddAccountViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                // Encrypt the secret key before storing
                 val encryptedSecret = try {
                     cryptoHelper.encrypt(cleanSecret)
                 } catch (e: Exception) {
-                    // If encryption fails, store as plain text (fallback)
-                    cleanSecret
+                    cleanSecret // fallback to plain text if encryption unavailable
                 }
 
                 val account = AccountEntity(
                     issuer = state.issuer.trim(),
                     accountName = state.accountName.trim(),
-                    secretKey = encryptedSecret
+                    secretKey = encryptedSecret,
+                    algorithm = state.algorithm,
+                    digits = state.digits
                 )
 
                 accountDao.insertAccount(account)
@@ -86,16 +80,14 @@ class AddAccountViewModel @Inject constructor(
             }
         }
     }
-
-    fun clearError() {
-        _uiState.value = _uiState.value.copy(error = null)
-    }
 }
 
 data class AddAccountUiState(
     val issuer: String = "",
     val accountName: String = "",
     val secret: String = "",
+    val algorithm: String = "SHA1",
+    val digits: Int = 6,
     val error: String? = null,
     val isLoading: Boolean = false
 )

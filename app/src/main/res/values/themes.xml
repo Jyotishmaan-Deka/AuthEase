@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.AuthEase" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
@@ -31,4 +29,10 @@
     </style>
 
     <style name="Theme.AuthEase" parent="Base.Theme.AuthEase" />
+
+    <!-- Outlined text field style to match M3 filled variant -->
+    <style name="AuthEase.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/md_theme_light_primary</item>
+        <item name="hintTextColor">@color/md_theme_light_onSurfaceVariant</item>
+    </style>
 </resources>

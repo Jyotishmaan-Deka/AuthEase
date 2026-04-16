@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    app:strokeWidth="0dp">
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorOutlineVariant">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,14 +17,29 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Header with issuer and delete button -->
+        <!-- Row 1: Avatar + Issuer/Account + Action buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="14dp">
 
+            <!-- Colored avatar circle with issuer initial -->
+            <TextView
+                android:id="@+id/textViewAvatar"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_avatar_circle"
+                android:layout_marginEnd="14dp"
+                tools:text="G"
+                tools:backgroundTint="@color/avatar_blue" />
+
+            <!-- Issuer + account name stack -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -33,73 +50,93 @@
                     android:id="@+id/textViewIssuer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textSize="16sp"
                     android:textColor="?attr/colorOnSurface"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     tools:text="Google" />
 
                 <TextView
                     android:id="@+id/textViewAccountName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="user@example.com" />
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginTop="2dp"
+                    tools:text="user@gmail.com" />
 
             </LinearLayout>
 
+            <!-- Copy button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonCopy"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/copy_code"
+                app:icon="@drawable/ic_copy"
+                app:iconSize="20dp"
+                app:iconTint="?attr/colorOnSurfaceVariant" />
+
+            <!-- Delete button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonDelete"
                 style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="Delete Account"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/delete_account"
                 app:icon="@drawable/ic_delete"
-                app:iconSize="24dp"
+                app:iconSize="20dp"
                 app:iconTint="?attr/colorError" />
 
         </LinearLayout>
 
-        <!-- OTP Code -->
+        <!-- Row 2: OTP code (large, monospace, primary color) -->
         <TextView
             android:id="@+id/textViewOtp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:textStyle="bold"
+            android:textSize="36sp"
             android:fontFamily="monospace"
             android:textColor="?attr/colorPrimary"
-            android:layout_marginBottom="8dp"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="14dp"
             tools:text="123 456" />
 
-        <!-- Timer and Progress -->
+        <!-- Row 3: Progress bar + timer chip -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBarTimer"
                 android:layout_width="0dp"
-                android:layout_height="8dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="12dp"
-                android:max="100"
-                android:progress="50"
-                android:progressTint="?attr/colorPrimary"
-                android:progressBackgroundTint="?attr/colorSurfaceVariant" />
+                android:layout_marginEnd="10dp"
+                app:trackCornerRadius="4dp"
+                app:trackThickness="5dp"
+                app:trackColor="?attr/colorSurfaceVariant"
+                app:indicatorColor="?attr/colorPrimary" />
 
+            <!-- Timer chip -->
             <TextView
                 android:id="@+id/textViewTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/bg_timer_chip"
+                android:textSize="12sp"
                 android:textColor="?attr/colorOnSurfaceVariant"
-                android:minWidth="24dp"
+                android:minWidth="48dp"
                 android:gravity="center"
-                tools:text="15" />
+                tools:text="28s" />
 
         </LinearLayout>
 

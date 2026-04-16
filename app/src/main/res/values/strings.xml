@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AuthEase</string>
-    <string name="add_account">Add Account</string>
+    <string name="add_account">Add account</string>
     <string name="issuer">Issuer</string>
-    <string name="account_name">Account Name</string>
-    <string name="secret_key">Secret Key</string>
-    <string name="delete_account">Delete Account</string>
-    <string name="no_accounts">No accounts added yet.\nTap + to add your first account.</string>
-    <string name="authenticator">Authenticator</string>
+    <string name="account_name">Account name</string>
+    <string name="secret_key">Secret key</string>
+    <string name="delete_account">Delete account</string>
+    <string name="copy_code">Copy code</string>
+    <string name="no_accounts_title">No accounts yet</string>
+    <string name="no_accounts_subtitle">Tap the + button to add your first\ntwo-factor authentication account.</string>
+    <string name="authenticator">AuthEase</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="enter_manually">Enter manually</string>
+    <string name="add_account_button">Add account</string>
+    <string name="issuer_hint">Service name (e.g. Google, GitHub)</string>
+    <string name="account_name_hint">Username or email</string>
+    <string name="secret_key_hint">Base32 secret key</string>
+    <string name="secret_key_helper">The secret key provided by the service</string>
+    <string name="algorithm_label">Algorithm</string>
+    <string name="digits_label">Code length</string>
+    <string name="otp_copied">Code copied to clipboard</string>
+    <string name="auth_title">Unlock AuthEase</string>
+    <string name="auth_subtitle">Use your fingerprint or face to view codes</string>
+    <string name="auth_cancel">Cancel</string>
+    <string name="or_divider">OR</string>
+    <string name="advanced_options">Advanced options</string>
 </resources>
