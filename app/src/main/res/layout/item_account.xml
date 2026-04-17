@@ -34,6 +34,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
+                android:background="@drawable/bg_avatar_circle"
                 android:layout_marginEnd="14dp"
                 tools:text="G"
                 tools:backgroundTint="@color/avatar_blue" />
@@ -76,6 +77,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="@string/copy_code"
+                app:icon="@drawable/ic_copy"
                 app:iconSize="20dp"
                 app:iconTint="?attr/colorOnSurfaceVariant" />
 
@@ -129,6 +131,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
+                android:background="@drawable/bg_timer_chip"
                 android:textSize="12sp"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:minWidth="48dp"
