@@ -34,7 +34,6 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/ic_shield_lock"
             android:contentDescription="Shield icon" />
 
         <TextView
