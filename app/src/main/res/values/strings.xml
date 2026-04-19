@@ -25,4 +25,52 @@
     <string name="auth_cancel">Cancel</string>
     <string name="or_divider">OR</string>
     <string name="advanced_options">Advanced options</string>
+
+    <!-- Splash -->
+    <string name="splash_tagline">Secure two-factor authentication</string>
+    <string name="splash_version">Version 1.0</string>
+
+    <!-- Settings toolbar -->
+    <string name="settings">Settings</string>
+
+    <!-- Settings sections -->
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_section_transfer">Transfer accounts</string>
+    <string name="settings_section_help">Help &amp; support</string>
+
+    <!-- Settings items -->
+    <string name="settings_theme">Theme</string>
+    <string name="settings_export">Export accounts</string>
+    <string name="settings_import">Import accounts</string>
+    <string name="settings_help">Help</string>
+    <string name="settings_about">About AuthEase</string>
+
+    <!-- Theme options -->
+    <string name="theme_system">Follow system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+
+    <!-- Subtitles -->
+    <string name="export_subtitle">Save accounts to a backup file</string>
+    <string name="import_subtitle">Restore accounts from a backup file</string>
+    <string name="help_subtitle">FAQs and how-to guides</string>
+    <string name="about_subtitle">Version, licenses and credits</string>
+
+    <!-- Export/Import dialogs -->
+    <string name="export_confirm_message">Your accounts will be exported to a JSON file. Keep it secure — it contains your 2FA secrets.</string>
+    <string name="export_proceed">Export</string>
+    <string name="export_success">Accounts exported successfully</string>
+    <string name="export_failed">Export failed. Please try again.</string>
+    <string name="import_confirm_message">Importing will add accounts from your backup file. Existing accounts will not be removed.</string>
+    <string name="import_proceed">Import</string>
+    <string name="import_success">Imported %1$d account(s) successfully</string>
+    <string name="import_failed">Import failed. Please check the file and try again.</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+
+    <!-- Help dialog -->
+    <string name="help_message">AuthEase generates time-based one-time passwords (TOTP) for your accounts.\n\n• Tap + to add a new account via QR code or manual entry.\n• Tap the copy icon to copy the code to clipboard.\n• Swipe or long-press an account to delete it.\n• Use Export to back up your secrets and Import to restore them.\n\nFor security, never share your backup file or secret keys.</string>
+
+    <!-- About dialog -->
+    <string name="about_message">AuthEase v1.0\n\nA secure, offline two-factor authentication app.\n\nBuilt with Material Design 3, Room, Hilt, and Navigation Component.\n\nYour secrets never leave your device.</string>
 </resources>

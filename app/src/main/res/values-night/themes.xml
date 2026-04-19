@@ -27,4 +27,13 @@
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
     </style>
+
+    <!-- Dark splash uses dark primary background -->
+    <style name="Theme.AuthEase.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/md_theme_dark_primary</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
+    </style>
 </resources>
