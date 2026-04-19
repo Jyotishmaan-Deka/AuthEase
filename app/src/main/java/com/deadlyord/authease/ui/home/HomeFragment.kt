@@ -19,7 +19,6 @@ import com.deadlyord.authease.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
@@ -29,7 +28,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: AccountAdapter
     private lateinit var biometricPrompt: BiometricPrompt
-    private var isAuthenticating = false // Prevent multiple auth prompts
+    private var isAuthenticating = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,11 +48,9 @@ class HomeFragment : Fragment() {
         observeAccounts()
 
         // Only authenticate if not already authenticated
-        // StateFlow value needs .value to access
         if (!viewModel.isAuthenticated.value) {
             authenticateUser()
         } else {
-            // Already authenticated, just ensure content is visible
             showContent()
         }
     }
@@ -65,41 +62,42 @@ class HomeFragment : Fragment() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
                     isAuthenticating = false
-                    // Still allow access but mark as not authenticated
                     viewModel.setAuthenticated(false)
-                    showContent()
-                    // Optional: Show error message
-                    requireContext().showToast("Authentication error: $errString")
+                    // Safely show content if view exists
+                    if (isAdded && view != null) {
+                        showContent()
+                        requireContext().showToast("Authentication error: $errString")
+                    }
                 }
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
                     isAuthenticating = false
                     viewModel.setAuthenticated(true)
-                    requireContext().showToast("Authenticated successfully")
-                    showContent()
+                    if (isAdded && view != null) {
+                        requireContext().showToast("Authenticated successfully")
+                        showContent()
+                    }
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
                     isAuthenticating = false
-                    requireContext().showToast("Authentication failed. Please try again.")
-                    // Keep showing content or retry?
-                    // For better UX, you might want to retry
-                    showContent()
+                    if (isAdded && view != null) {
+                        requireContext().showToast("Authentication failed. Please try again.")
+                        showContent()
+                    }
                 }
             })
     }
 
     private fun showContent() {
-        // Ensure UI is interactive
+        // Safely update UI only if view exists
+        if (_binding == null) return
+
         binding.recyclerViewAccounts.alpha = 1f
         binding.fabAddAccount.isEnabled = true
         binding.fabAddAccount.alpha = 1f
-
-        // If you want to hide content until authenticated, uncomment below:
-        // binding.recyclerViewAccounts.visibility = View.VISIBLE
-        // binding.layoutEmpty.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
     }
 
     private fun setupRecyclerView() {
@@ -128,15 +126,18 @@ class HomeFragment : Fragment() {
     private fun observeAccounts() {
         lifecycleScope.launch {
             viewModel.accounts.collect { accounts ->
-                adapter.submitList(accounts)
-                binding.layoutEmpty.visibility = if (accounts.isEmpty()) View.VISIBLE else View.GONE
-                binding.recyclerViewAccounts.visibility = if (accounts.isEmpty()) View.GONE else View.VISIBLE
+                // SAFETY CHECK: Only update UI if binding is not null
+                if (_binding != null) {
+                    adapter.submitList(accounts)
+                    val isEmpty = accounts.isEmpty()
+                    binding.layoutEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+                    binding.recyclerViewAccounts.visibility = if (isEmpty) View.GONE else View.VISIBLE
+                }
             }
         }
     }
 
     private fun authenticateUser() {
-        // Prevent multiple auth prompts from showing simultaneously
         if (isAuthenticating) return
 
         val biometricManager = BiometricManager.from(requireContext())
@@ -169,7 +170,6 @@ class HomeFragment : Fragment() {
                 showContent()
             }
             else -> {
-                // Silently fall through on other cases
                 viewModel.setAuthenticated(true)
                 showContent()
             }
@@ -178,10 +178,10 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Clear binding to prevent memory leaks
         _binding = null
     }
 }
-
 /*@AndroidEntryPoint
 class HomeFragment : Fragment() {
 

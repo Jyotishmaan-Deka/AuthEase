@@ -47,6 +47,16 @@ class SettingsViewModel @Inject constructor(
             }
     }
 
+    fun saveThemeMode(mode: Int, context: Context) {
+        AppCompatDelegate.setDefaultNightMode(mode)
+        updateThemeLabel(mode)
+        // Persist
+        context.getSharedPreferences("authease_prefs", Context.MODE_PRIVATE)
+            .edit {
+                putInt("theme_mode", mode)
+            }
+    }
+
     private fun updateThemeLabel(mode: Int) {
         _themeLabel.value = when (mode) {
             AppCompatDelegate.MODE_NIGHT_NO -> "Light"

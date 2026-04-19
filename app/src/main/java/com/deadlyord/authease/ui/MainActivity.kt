@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // Listen for destination changes to update menu visibility
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            supportInvalidateOptionsMenu()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -43,16 +48,18 @@ class MainActivity : AppCompatActivity() {
 
         val iconRes = when (currentNightMode) {
             android.content.res.Configuration.UI_MODE_NIGHT_YES -> {
-                // Dark mode is ON - use light icon (white)
                 R.drawable.ic_settings_light
             }
             else -> {
-                // Dark mode is OFF - use dark icon (black)
                 R.drawable.ic_settings_dark
             }
         }
 
         settingsItem.icon = ContextCompat.getDrawable(this, iconRes)
+
+        // Hide settings icon when we're in settings fragment
+        val currentDestination = navController.currentDestination
+        settingsItem.isVisible = currentDestination?.id != R.id.settingsFragment
 
         return true
     }
@@ -60,9 +67,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                // Only navigate if we're not already on settings
+                // Safe navigation - only navigate if not already in settings
                 if (navController.currentDestination?.id != R.id.settingsFragment) {
-                    navController.navigate(R.id.action_homeFragment_to_settingsFragment)
+                    navController.navigate(R.id.settingsFragment)
                 }
                 true
             }
@@ -74,47 +81,3 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
-
-/*@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> {
-                // Only navigate if we're not already on settings
-                if (navController.currentDestination?.id != R.id.settingsFragment) {
-                    navController.navigate(R.id.action_homeFragment_to_settingsFragment)
-                }
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-}*/

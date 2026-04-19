@@ -5,14 +5,20 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.deadlyord.authease.R
 import com.deadlyord.authease.databinding.FragmentSettingsBinding
 import com.deadlyord.authease.utils.showToast
@@ -58,10 +64,44 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupToolbar()
         setupThemeSection()
         setupTransferSection()
         setupHelpSection()
         observeViewModel()
+    }
+
+    // NEW: Setup toolbar with home button
+    private fun setupToolbar() {
+        // Show the back/home button in toolbar
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)
+
+        // Add menu provider for additional menu items
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: android.view.MenuInflater) {
+                // Clear existing menu items (like settings)
+                menu.clear()
+                // Add home menu item
+                menuInflater.inflate(R.menu.menu_settings, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        // Navigate back to home
+                        findNavController().navigate(R.id.homeFragment)
+                        true
+                    }
+                    R.id.action_home -> {
+                        // Navigate to home fragment
+                        findNavController().navigate(R.id.homeFragment)
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     // ── Theme ──────────────────────────────────────────────────────────────────
@@ -92,7 +132,7 @@ class SettingsFragment : Fragment() {
                     else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                 }
                 AppCompatDelegate.setDefaultNightMode(mode)
-                viewModel.saveThemeMode(mode)
+                viewModel.saveThemeMode(mode, requireContext())
                 dialog.dismiss()
             }
             .show()
