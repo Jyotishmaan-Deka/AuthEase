@@ -27,7 +27,7 @@
             android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AuthEase.Splash"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

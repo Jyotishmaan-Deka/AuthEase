@@ -53,8 +53,8 @@
                     android:src="@drawable/ic_settings_theme"
                     android:padding="8dp"
                     android:background="@drawable/bg_settings_icon"
-                    android:tint="?attr/colorPrimary"
-                    android:contentDescription="Theme icon" />
+                    android:contentDescription="Theme icon"
+                    app:tint="?attr/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -83,8 +83,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="?attr/colorOnSurfaceVariant"
-                    android:contentDescription="Navigate" />
+                    android:contentDescription="Navigate"
+                    app:tint="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -129,8 +129,8 @@
                     android:src="@drawable/ic_export"
                     android:padding="8dp"
                     android:background="@drawable/bg_settings_icon"
-                    android:tint="?attr/colorPrimary"
-                    android:contentDescription="Export icon" />
+                    android:contentDescription="Export icon"
+                    app:tint="?attr/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -158,8 +158,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="?attr/colorOnSurfaceVariant"
-                    android:contentDescription="Navigate" />
+                    android:contentDescription="Navigate"
+                    app:tint="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -191,8 +191,8 @@
                     android:src="@drawable/ic_import"
                     android:padding="8dp"
                     android:background="@drawable/bg_settings_icon"
-                    android:tint="?attr/colorPrimary"
-                    android:contentDescription="Import icon" />
+                    android:contentDescription="Import icon"
+                    app:tint="?attr/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -220,8 +220,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="?attr/colorOnSurfaceVariant"
-                    android:contentDescription="Navigate" />
+                    android:contentDescription="Navigate"
+                    app:tint="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -266,8 +266,8 @@
                     android:src="@drawable/ic_help"
                     android:padding="8dp"
                     android:background="@drawable/bg_settings_icon"
-                    android:tint="?attr/colorPrimary"
-                    android:contentDescription="Help icon" />
+                    android:contentDescription="Help icon"
+                    app:tint="?attr/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -295,8 +295,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="?attr/colorOnSurfaceVariant"
-                    android:contentDescription="Navigate" />
+                    android:contentDescription="Navigate"
+                    app:tint="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -328,8 +328,8 @@
                     android:src="@drawable/ic_info"
                     android:padding="8dp"
                     android:background="@drawable/bg_settings_icon"
-                    android:tint="?attr/colorPrimary"
-                    android:contentDescription="About icon" />
+                    android:contentDescription="About icon"
+                    app:tint="?attr/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -357,8 +357,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_chevron_right"
-                    android:tint="?attr/colorOnSurfaceVariant"
-                    android:contentDescription="Navigate" />
+                    android:contentDescription="Navigate"
+                    app:tint="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

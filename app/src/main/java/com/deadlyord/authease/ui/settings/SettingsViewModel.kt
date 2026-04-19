@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.deadlyord.authease.AuthenticatorApplication
 import com.deadlyord.authease.db.AccountDao
 import com.deadlyord.authease.db.AccountEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import javax.inject.Inject
+import androidx.core.content.edit
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -30,9 +32,19 @@ class SettingsViewModel @Inject constructor(
         updateThemeLabel(AppCompatDelegate.getDefaultNightMode())
     }
 
+//    fun saveThemeMode(mode: Int) {
+//        AppCompatDelegate.setDefaultNightMode(mode)
+//        updateThemeLabel(mode)
+//    }
+
     fun saveThemeMode(mode: Int) {
         AppCompatDelegate.setDefaultNightMode(mode)
         updateThemeLabel(mode)
+        // Persist using Application context
+        AuthenticatorApplication.instance.getSharedPreferences("authease_prefs", Context.MODE_PRIVATE)
+            .edit {
+                putInt("theme_mode", mode)
+            }
     }
 
     private fun updateThemeLabel(mode: Int) {
