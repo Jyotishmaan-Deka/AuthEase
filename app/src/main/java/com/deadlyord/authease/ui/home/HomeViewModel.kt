@@ -19,6 +19,10 @@ class HomeViewModel @Inject constructor(
     private val _accounts = MutableStateFlow<List<AccountEntity>>(emptyList())
     val accounts: StateFlow<List<AccountEntity>> = _accounts.asStateFlow()
 
+    // Authentication state - survives configuration changes (screen rotation)
+    private val _isAuthenticated = MutableStateFlow(false)
+    val isAuthenticated: StateFlow<Boolean> = _isAuthenticated.asStateFlow()
+
     init {
         loadAccounts()
     }
@@ -36,4 +40,37 @@ class HomeViewModel @Inject constructor(
             accountDao.deleteAccount(account)
         }
     }
+
+    // Set authentication status
+    fun setAuthenticated(authenticated: Boolean) {
+        _isAuthenticated.value = authenticated
+    }
 }
+
+/*@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val accountDao: AccountDao
+) : ViewModel() {
+
+    private val _accounts = MutableStateFlow<List<AccountEntity>>(emptyList())
+    val accounts: StateFlow<List<AccountEntity>> = _accounts.asStateFlow()
+
+    init {
+        loadAccounts()
+    }
+
+    private fun loadAccounts() {
+        viewModelScope.launch {
+            accountDao.getAllAccounts().collect { accountList ->
+                _accounts.value = accountList
+            }
+        }
+    }
+
+    fun deleteAccount(account: AccountEntity) {
+        viewModelScope.launch {
+            accountDao.deleteAccount(account)
+        }
+    }
+}*/
+
