@@ -30,6 +30,16 @@
 
     <style name="Theme.AuthEase" parent="Base.Theme.AuthEase" />
 
+    <!-- Splash screen theme — full-bleed primary color, no action bar -->
+    <style name="Theme.AuthEase.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/md_theme_light_primary</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+    </style>
+
     <!-- Outlined text field style to match M3 filled variant -->
     <style name="AuthEase.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/md_theme_light_primary</item>
