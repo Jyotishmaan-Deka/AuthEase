@@ -12,7 +12,7 @@ A simple Android app to generate TOTP (Time-based One-Time Password) codes for t
 
 - Generate TOTP codes with real-time 30-second countdown
 - Secure storage using Android Keystore + AES encryption
-- Optional biometric lock (fingerprint/face)
+- Biometric lock
 - Dark mode support
 - No internet permission — fully offline
 - Add and delete accounts easily
@@ -69,8 +69,6 @@ com.deadlyord.authease/
 - QR code scanning
 - Account import/export
 - HOTP support
-- Wear OS widget
-
 ---
 
 ## License
