@@ -17,9 +17,10 @@
         android:paddingBottom="88dp"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"
+        android:visibility="gone"
         tools:listitem="@layout/item_account" />
 
-    <!-- Beautiful empty state — centered column with shield icon -->
+    <!-- Empty state -->
     <LinearLayout
         android:id="@+id/layoutEmpty"
         android:layout_width="match_parent"
@@ -56,7 +57,46 @@
 
     </LinearLayout>
 
-    <!-- Extended FAB for visual prominence -->
+    <!-- Fix 6: Auth overlay — covers all content while biometric prompt is active -->
+    <LinearLayout
+        android:id="@+id/authOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="40dp"
+        android:background="?attr/colorSurface"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_shield_lock"
+            android:contentDescription="Locked"
+            app:tint="?attr/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auth_title"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auth_overlay_message"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4" />
+
+    </LinearLayout>
+
+    <!-- FAB -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabAddAccount"
         android:layout_width="wrap_content"

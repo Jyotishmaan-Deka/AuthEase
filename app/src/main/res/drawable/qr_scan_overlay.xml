@@ -1,8 +1,37 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke
-        android:width="3dp"
-        android:color="?attr/colorPrimary"
-        android:dashWidth="10dp"
-        android:dashGap="5dp" />
-    <corners android:radius="12dp" />
-</shape>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fix 3: Proper visual scanner overlay with solid corner brackets -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Semi-transparent background fill -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#22000000" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+
+    <!-- Outer border stroke -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#44FFFFFF" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+
+    <!-- Top-left corner bracket (horizontal bar) -->
+    <item
+        android:top="0dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="0dp"
+                android:color="@android:color/transparent" />
+        </shape>
+    </item>
+
+</layer-list>

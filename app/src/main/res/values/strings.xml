@@ -73,4 +73,10 @@
 
     <!-- About dialog -->
     <string name="about_message">AuthEase v1.0\n\nA secure, offline two-factor authentication app.\n\nBuilt with Material Design 3, Room, Hilt, and Navigation Component.\n\nYour secrets never leave your device.</string>
+    <!-- Fix 1 & 2: Auth strings -->
+    <string name="auth_use_pattern">Use Pattern / PIN</string>
+    <string name="auth_pattern_subtitle">Use your device pattern, PIN, or password</string>
+    <string name="auth_no_lock_screen">No lock screen set. Please configure a PIN, pattern, or password in device settings.</string>
+    <!-- Fix 6: Overlay message -->
+    <string name="auth_overlay_message">Authenticate to view your codes</string>
 </resources>

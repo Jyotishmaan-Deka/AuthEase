@@ -26,21 +26,28 @@
         <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+
+        <!-- Fix 4: Light theme status bar — dark icons on light background for proper contrast -->
+        <item name="android:statusBarColor">@color/md_theme_light_surface</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     </style>
 
     <style name="Theme.AuthEase" parent="Base.Theme.AuthEase" />
 
-    <!-- Splash screen theme — full-bleed primary color, no action bar -->
+    <!-- Splash screen theme -->
     <style name="Theme.AuthEase.Splash" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/md_theme_light_primary</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
+        <!-- Fix 4: Splash uses primary color background — use light icons (white) on dark primary -->
+        <item name="android:statusBarColor">@color/md_theme_light_primary</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
     </style>
 
-    <!-- Outlined text field style to match M3 filled variant -->
+    <!-- Outlined text field style -->
     <style name="AuthEase.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/md_theme_light_primary</item>
         <item name="hintTextColor">@color/md_theme_light_onSurfaceVariant</item>

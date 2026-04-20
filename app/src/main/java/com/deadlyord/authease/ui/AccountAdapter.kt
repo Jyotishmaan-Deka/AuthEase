@@ -12,6 +12,7 @@ import com.deadlyord.authease.auth.SecureOTPHelper
 import com.deadlyord.authease.auth.TOTP
 import com.deadlyord.authease.databinding.ItemAccountBinding
 import com.deadlyord.authease.db.AccountEntity
+import com.deadlyord.authease.utils.OtpFormatter
 
 class AccountAdapter(
     private val onDeleteClick: (AccountEntity) -> Unit,
@@ -76,10 +77,10 @@ class AccountAdapter(
 
                 buttonDelete.setOnClickListener { onDeleteClick(account) }
                 buttonCopy.setOnClickListener {
-                    if (currentOTP.isNotEmpty()) onCopyClick(currentOTP.replace(" ", ""))
+                    if (currentOTP.isNotEmpty()) onCopyClick(OtpFormatter.stripSpaces(currentOTP))
                 }
                 root.setOnClickListener {
-                    if (currentOTP.isNotEmpty()) onCopyClick(currentOTP.replace(" ", ""))
+                    if (currentOTP.isNotEmpty()) onCopyClick(OtpFormatter.stripSpaces(currentOTP))
                 }
             }
         }
@@ -89,11 +90,8 @@ class AccountAdapter(
             binding.textViewOtp.text = formatOTP(currentOTP)
         }
 
-        private fun formatOTP(otp: String): String = when (otp.length) {
-            6 -> "${otp.substring(0, 3)} ${otp.substring(3)}"
-            8 -> "${otp.substring(0, 4)} ${otp.substring(4)}"
-            else -> otp
-        }
+        // Fix 5: Delegate to shared OtpFormatter — no more duplication
+        private fun formatOTP(otp: String): String = OtpFormatter.format(otp)
 
         private fun startCountdown(totp: TOTP) {
             countDownTimer?.cancel()

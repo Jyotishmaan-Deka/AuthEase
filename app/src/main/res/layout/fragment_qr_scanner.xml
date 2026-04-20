@@ -8,22 +8,46 @@
     android:background="?attr/colorSurface"
     tools:context=".ui.scanner.QRScannerFragment">
 
-    <!-- Camera Preview Container - ADDED ID -->
+    <!-- Camera Preview Container -->
     <FrameLayout
         android:id="@+id/cameraContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="?attr/colorSurfaceVariant">
+        android:background="@android:color/black">
 
-        <!-- Remove the TextView placeholder since camera will replace it -->
-        <!-- Scanning overlay -->
+        <!-- Fix 3: Semi-transparent dark vignette around the scan area -->
         <View
-            android:id="@+id/scanOverlay"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#88000000" />
+
+        <!-- Fix 3: Transparent "window" punched out in the centre — white box to show scan area -->
+        <View
+            android:id="@+id/scanWindow"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_gravity="center"
-            android:background="@drawable/qr_scan_overlay" />
+            android:background="#00000000" />
+
+        <!-- Fix 3: Corner-bracket indicator drawn on top of the camera feed -->
+        <ImageView
+            android:id="@+id/scanOverlay"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:src="@drawable/qr_corner_overlay"
+            android:contentDescription="QR scan area"
+            android:scaleType="fitXY" />
+
+        <!-- Animated scan line -->
+        <View
+            android:id="@+id/scanLine"
+            android:layout_width="200dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.8" />
 
     </FrameLayout>
 
