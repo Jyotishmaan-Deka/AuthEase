@@ -1,5 +1,6 @@
 package com.armunstudio.authease.ui
 
+import android.annotation.SuppressLint
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -23,14 +24,13 @@ class AccountAdapter(
     private val onReorderComplete: (List<AccountEntity>) -> Unit = {}
 ) : ListAdapter<AccountEntity, AccountAdapter.AccountViewHolder>(AccountDiffCallback()) {
 
-    // ── Drag-to-reorder state ────────────────────────────────────────────────
-
-    // Separate mutable list used while a drag is in progress so we can call
-    // notifyItemMoved without conflicting with DiffUtil's internal list.
+/*     JD :  Drag-to-reorder state
+     Separate mutable list used while a drag is in progress so we can call
+     notifyItemMoved without conflicting with DiffUtil's internal list.*/
     private val dragList = mutableListOf<AccountEntity>()
     private var isDragging = false
 
-    // Injected by HomeFragment after ItemTouchHelper is created
+    // JD : Injected by HomeFragment after ItemTouchHelper is created
     var itemTouchHelper: ItemTouchHelper? = null
 
     fun startDrag() {
@@ -57,14 +57,12 @@ class AccountAdapter(
         onReorderComplete(dragList.toList())
     }
 
-    // Override so ViewHolder.bind reads from dragList during an active drag
+    // JD : Override so ViewHolder.bind reads from dragList during an active drag
     override fun getItem(position: Int): AccountEntity =
         if (isDragging) dragList[position] else super.getItem(position)
 
     override fun getItemCount(): Int =
         if (isDragging) dragList.size else super.getItemCount()
-
-    // ── Adapter boilerplate ──────────────────────────────────────────────────
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
         val binding = ItemAccountBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -80,8 +78,6 @@ class AccountAdapter(
         holder.cleanup()
     }
 
-    // ── ViewHolder ───────────────────────────────────────────────────────────
-
     inner class AccountViewHolder(
         private val binding: ItemAccountBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -89,6 +85,7 @@ class AccountAdapter(
         private var countDownTimer: CountDownTimer? = null
         private var currentOTP: String = ""
 
+        @SuppressLint("ClickableViewAccessibility")
         fun bind(account: AccountEntity) {
             val context = binding.root.context
 
@@ -108,7 +105,6 @@ class AccountAdapter(
                 textViewIssuer.text = account.issuer.ifEmpty { "Unknown" }
                 textViewAccountName.text = account.accountName
 
-                // Deterministic avatar colour
                 val initial = account.issuer.firstOrNull()?.uppercaseChar()?.toString() ?: "?"
                 textViewAvatar.text = initial
                 val avatarColors = listOf(
@@ -129,7 +125,7 @@ class AccountAdapter(
                     if (currentOTP.isNotEmpty()) onCopyClick(OtpFormatter.stripSpaces(currentOTP))
                 }
 
-                // Drag handle: touch-down starts the drag immediately (no long-press needed)
+                // JD : Drag handle, touch-down starts the drag immediately (no long press needed)
                 dragHandle.setOnTouchListener { _, event ->
                     if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                         startDrag()
@@ -165,7 +161,7 @@ class AccountAdapter(
                         android.content.res.ColorStateList.valueOf(tintColor)
                     binding.textViewTimer.setTextColor(tintColor)
 
-                    // Swap timer chip background to errorContainer when urgent
+                    // JD : Swap timer chip background to red color when urgent
                     val bgRes = if (isUrgent) R.drawable.bg_delete_circle else R.drawable.bg_timer_chip
                     binding.textViewTimer.setBackgroundResource(bgRes)
                 }

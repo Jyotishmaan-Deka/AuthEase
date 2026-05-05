@@ -81,7 +81,7 @@ object OTPGenerator {
             val timeBytes = ByteBuffer.allocate(8).putLong(timeSteps).array()
             generateOTP(key, timeBytes, digits, algorithm)
         } catch (e: Exception) {
-            "000000" // Return default on error
+            "000000"
         }
     }
 
@@ -96,7 +96,7 @@ object OTPGenerator {
             val counterBytes = ByteBuffer.allocate(8).putLong(counter).array()
             generateOTP(key, counterBytes, digits, algorithm)
         } catch (e: Exception) {
-            "000000" // Return default on error
+            "000000"
         }
     }
 

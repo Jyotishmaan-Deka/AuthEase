@@ -39,8 +39,8 @@ android {
 
     packaging {
         jniLibs {
-            // Ensure 16 KB page-size alignment for all bundled .so files
-            // Required for Android 15+ (Google Play enforcement from Nov 2025)
+            // JD : Ensure 16 KB page-size alignment for all bundled .so files
+            // JD : Required for Android 15+ (Google Play enforcement from Nov 2025)
             useLegacyPackaging = false
         }
     }
