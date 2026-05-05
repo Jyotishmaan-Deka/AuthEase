@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- In dark mode, timer colors must be light so they show on dark card backgrounds -->
+    <color name="timer_normal">#BBC2FF</color>   <!-- same as md_theme_dark_primary -->
+    <color name="timer_urgent">#FFB4AB</color>   <!-- same as md_theme_dark_error -->
+</resources>

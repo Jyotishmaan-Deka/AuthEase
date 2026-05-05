@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace = "com.deadlyord.authease"
+    namespace = "com.armunstudio.authease"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.deadlyord.authease"
+        applicationId = "com.armunstudio.authease"
         minSdk = 28
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,14 +37,24 @@ android {
         jvmTarget = "17"
     }
 
+    packaging {
+        jniLibs {
+            // Ensure 16 KB page-size alignment for all bundled .so files
+            // Required for Android 15+ (Google Play enforcement from Nov 2025)
+            useLegacyPackaging = false
+        }
+    }
+
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
 dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.lifecycle.process)
     // Core Library Desugaring
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 

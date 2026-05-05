@@ -43,7 +43,7 @@
     <string name="settings_export">Export accounts</string>
     <string name="settings_import">Import accounts</string>
     <string name="settings_help">Help</string>
-    <string name="settings_about">About AuthEase</string>
+    <string name="settings_about">About</string>
 
     <!-- Theme options -->
     <string name="theme_system">Follow system</string>
@@ -72,11 +72,13 @@
     <string name="help_message">AuthEase generates time-based one-time passwords (TOTP) for your accounts.\n\n• Tap + to add a new account via QR code or manual entry.\n• Tap the copy icon to copy the code to clipboard.\n• Swipe or long-press an account to delete it.\n• Use Export to back up your secrets and Import to restore them.\n\nFor security, never share your backup file or secret keys.</string>
 
     <!-- About dialog -->
-    <string name="about_message">AuthEase v1.0\n\nA secure, offline two-factor authentication app.\n\nBuilt with Material Design 3, Room, Hilt, and Navigation Component.\n\nYour secrets never leave your device.</string>
-    <!-- Fix 1 & 2: Auth strings -->
+    <string name="about_message">
+    AuthEase v%1$s\n\nA secure, offline two-factor authentication app.\n\nBuilt with Material Design 3, Room, Hilt, and Navigation Component.\n\nYour secrets never leave your device.
+    </string>
+    <!-- Auth strings -->
     <string name="auth_use_pattern">Use Pattern / PIN</string>
     <string name="auth_pattern_subtitle">Use your device pattern, PIN, or password</string>
     <string name="auth_no_lock_screen">No lock screen set. Please configure a PIN, pattern, or password in device settings.</string>
-    <!-- Fix 6: Overlay message -->
+    <!-- Overlay message -->
     <string name="auth_overlay_message">Authenticate to view your codes</string>
 </resources>
