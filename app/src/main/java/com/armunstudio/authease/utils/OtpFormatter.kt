@@ -6,7 +6,7 @@ object OtpFormatter {
     /**
      * Formats a raw OTP string into a human-readable grouped string.
      *
-     * Examples:
+     *  JD :  Examples:
      *   "123456" → "123 456"
      *   "12345678" → "1234 5678"
      *   any other length → returned unchanged

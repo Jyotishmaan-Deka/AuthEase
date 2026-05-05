@@ -163,7 +163,7 @@ class QRScannerFragment : Fragment() {
             val cameraProvider = cameraProviderFuture.get()
             val cameraContainer = binding.cameraContainer
 
-            // Fix 3: Insert PreviewView at index 0 so overlay views stay on top
+            // JD : Insert PreviewView at index 0 so overlay views stay on top
             val previewView = PreviewView(requireContext()).apply {
                 layoutParams = FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT,
@@ -171,7 +171,7 @@ class QRScannerFragment : Fragment() {
                 )
                 scaleType = PreviewView.ScaleType.FILL_CENTER
             }
-            // Insert at bottom of z-order so vignette + corner overlay render above it
+            // JD : Insert at bottom of z-order so vignette + corner overlay render above it
             cameraContainer.addView(previewView, 0)
 
             val preview = Preview.Builder().build().also {

@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
     private val _accounts = MutableStateFlow<List<AccountEntity>>(emptyList())
     val accounts: StateFlow<List<AccountEntity>> = _accounts.asStateFlow()
 
-    // Authentication state — survives configuration changes (screen rotation)
+    // JD : Authentication state survives configuration changes (screen rotation)
     private val _isAuthenticated = MutableStateFlow(false)
     val isAuthenticated: StateFlow<Boolean> = _isAuthenticated.asStateFlow()
 

@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    // Activity-scoped ViewModel — same instance shared with HomeFragment via activityViewModels()
+    //  JD : Activity-scoped ViewModel. same instance shared with HomeFragment via activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +46,12 @@ class MainActivity : AppCompatActivity() {
             supportInvalidateOptionsMenu()
         }
 
-        // Reset authentication only when the whole app goes to background
-        // (not during in-app navigation between fragments)
+
+
+        // JD : Reset authentication only when the whole app goes to background
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onStop(owner: LifecycleOwner) {
-                // App is no longer visible: screen locked, home pressed, or switched away
+                // JD : App is no longer visible: screen locked, home pressed, or switched away
                 homeViewModel.setAuthenticated(false)
             }
         })
@@ -58,8 +59,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-
-        // Set the appropriate icon based on current theme
         val settingsItem = menu.findItem(R.id.action_settings)
         val currentNightMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
 
@@ -69,8 +68,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         settingsItem.icon = ContextCompat.getDrawable(this, iconRes)
-
-        // Hide settings icon when we're in settings fragment
         val currentDestination = navController.currentDestination
         settingsItem.isVisible = currentDestination?.id != R.id.settingsFragment
 
@@ -80,7 +77,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                // Safe navigation - only navigate if not already in settings
                 if (navController.currentDestination?.id != R.id.settingsFragment) {
                     navController.navigate(R.id.settingsFragment)
                 }

@@ -31,7 +31,7 @@ class QRScannerViewModel @Inject constructor(
                     return@launch
                 }
 
-                // Validate secret key format
+                // JD : Validate secret key format
                 if (!account.secretKey.isValidBase32()) {
                     _navigationEvent.emit(
                         QRScannerNavigationEvent.ShowError("Invalid secret key format")
@@ -39,7 +39,6 @@ class QRScannerViewModel @Inject constructor(
                     return@launch
                 }
 
-                // Save the account
                 accountDao.insertAccount(account)
                 _navigationEvent.emit(QRScannerNavigationEvent.NavigateBackWithAccount)
 

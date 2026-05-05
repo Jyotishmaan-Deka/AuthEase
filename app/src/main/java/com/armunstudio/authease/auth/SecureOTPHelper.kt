@@ -14,7 +14,7 @@ class SecureOTPHelper(context: Context) {
         return try {
             cryptoHelper.decrypt(account.secretKey)
         } catch (e: Exception) {
-            // Backward-compatibility: secret was stored as plain text before encryption was added
+            // JD : Backward-compatibility: secret was stored as plain text before encryption was added
             account.secretKey
         }
     }

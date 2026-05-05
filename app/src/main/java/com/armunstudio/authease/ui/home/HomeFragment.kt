@@ -119,10 +119,10 @@ class HomeFragment : Fragment() {
             }
         )
 
-        // ── Drag-to-reorder via ItemTouchHelper ──────────────────────────────
+        // JD :  Drag to reorder via ItemTouchHelper
         val dragCallback = object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN,  // allowed drag directions
-            0                                            // no swipe
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,  // JD : allowed drag directions
+            0                                            // JD : no swipe
         ) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -131,14 +131,14 @@ class HomeFragment : Fragment() {
             ): Boolean = adapter.moveItem(viewHolder.adapterPosition, target.adapterPosition)
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                // Swipe disabled — nothing to do
+                // JD : Swipe disabled  for now, update later
             }
 
-            override fun isLongPressDragEnabled(): Boolean = false // drag handle only
+            override fun isLongPressDragEnabled(): Boolean = false // JD : drag handle only
 
             override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, viewHolder)
-                // Drag ended — persist final order to DB
+                // JD : Drag ended persist final order to DB
                 adapter.endDrag()
             }
         }

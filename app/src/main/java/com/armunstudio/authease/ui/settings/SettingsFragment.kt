@@ -33,7 +33,7 @@ class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels()
 
-    // File picker for import
+    // JD : File picker for import
     private val importLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -42,7 +42,7 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    // File picker for export
+    // JD : File picker for export
     private val exportLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -70,30 +70,28 @@ class SettingsFragment : Fragment() {
         observeViewModel()
     }
 
-    // NEW: Setup toolbar with home button
+    // JD :  Setup toolbar with home button
     private fun setupToolbar() {
-        // Show the back/home button in toolbar
+        //JD :  Show the back/home button in toolbar
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)
 
-        // Add menu provider for additional menu items
+        // JD : Add menu provider for additional menu items
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: android.view.MenuInflater) {
-                // Clear existing menu items (like settings)
+                // JD : Clear existing menu items (like settings)
                 menu.clear()
-                // Add home menu item
+                // JD : Add home menu item
                 menuInflater.inflate(R.menu.menu_settings, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     android.R.id.home -> {
-                        // Navigate back to home
                         findNavController().popBackStack()
                         true
                     }
                     R.id.action_home -> {
-                        // Navigate to home fragment
                         findNavController().popBackStack()
                         true
                     }
@@ -102,8 +100,6 @@ class SettingsFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
-
-    // ── Theme ──────────────────────────────────────────────────────────────────
 
     private fun setupThemeSection() {
         binding.itemTheme.setOnClickListener { showThemeDialog() }
@@ -137,7 +133,6 @@ class SettingsFragment : Fragment() {
             .show()
     }
 
-    // ── Import / Export ────────────────────────────────────────────────────────
 
     private fun setupTransferSection() {
         binding.itemExport.setOnClickListener { confirmExport() }
@@ -201,8 +196,6 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    // ── Help ───────────────────────────────────────────────────────────────────
-
     private fun setupHelpSection() {
         binding.itemHelp.setOnClickListener { showHelpDialog() }
         binding.itemAbout.setOnClickListener { showAboutDialog() }
@@ -229,10 +222,8 @@ class SettingsFragment : Fragment() {
             .show()
     }
 
-    // ── Observers ──────────────────────────────────────────────────────────────
-
+    // JD :  Observers
     private fun observeViewModel() {
-        // Theme label update
         viewModel.themeLabel.observe(viewLifecycleOwner) { label ->
             binding.itemThemeSubtitle.text = label
         }

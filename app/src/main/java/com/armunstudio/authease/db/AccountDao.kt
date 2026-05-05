@@ -23,7 +23,6 @@ interface AccountDao {
     @Delete
     suspend fun deleteAccount(account: AccountEntity)
 
-    // Order by sort_order first, fall back to created_at for accounts with same order value
     @Query("SELECT * FROM accounts ORDER BY sort_order ASC, created_at ASC")
     fun getAllAccounts(): Flow<List<AccountEntity>>
 
@@ -33,7 +32,6 @@ interface AccountDao {
     @Query("SELECT * FROM accounts WHERE id = :accountId")
     fun getAccountById(accountId: Int): Flow<AccountEntity?>
 
-    // Used during drag-to-reorder — updates a single row's order index
     @Query("UPDATE accounts SET sort_order = :order WHERE id = :id")
     suspend fun updateSortOrder(id: Int, order: Int)
 }
