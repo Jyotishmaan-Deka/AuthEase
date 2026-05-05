@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.deadlyord.authease.ui.home.HomeFragment"
-        android:label="Authenticator"
+        android:name="com.armunstudio.authease.ui.home.HomeFragment"
+        android:label="AuthEase"
         tools:layout="@layout/fragment_home">
 
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/addAccountFragment"
-        android:name="com.deadlyord.authease.ui.addaccount.AddAccountFragment"
+        android:name="com.armunstudio.authease.ui.addaccount.AddAccountFragment"
         android:label="Add Account"
         tools:layout="@layout/fragment_add_account">
 
@@ -45,13 +45,13 @@
 
     <fragment
         android:id="@+id/qrScannerFragment"
-        android:name="com.deadlyord.authease.ui.scanner.QRScannerFragment"
+        android:name="com.armunstudio.authease.ui.scanner.QRScannerFragment"
         android:label="Scan QR Code"
         tools:layout="@layout/fragment_qr_scanner" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.deadlyord.authease.ui.settings.SettingsFragment"
+        android:name="com.armunstudio.authease.ui.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" />
 

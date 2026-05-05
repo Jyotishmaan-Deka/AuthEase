@@ -1,76 +1,63 @@
-# AuthEase - TOTP Authenticator
+# AuthEase
+
+AuthEase is a lightweight and secure Android application designed for Two-Factor Authentication (2FA). It generates Time based One Time Passwords (TOTP) to provide an extra layer of security for your digital accounts, fully compatible with standard services like Google, GitHub and others.
 
 [![Android](https://img.shields.io/badge/Android-API%2028+-green.svg?style=flat)](https://android-arsenal.com/api?level=28)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.9+-blue.svg?style=flat)](https://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A simple Android app to generate TOTP (Time-based One-Time Password) codes for two-factor authentication. Works with Google Authenticator, Authy, and any standard TOTP service.
 
----
+## Key Features
 
-## Features
+Secure Token Generation
+Instantly generate standard TOTP codes with a 30 second refresh cycle and a visual countdown timer.
 
-- Generate TOTP codes with real-time 30-second countdown
-- Secure storage using Android Keystore + AES encryption
-- Biometric lock
-- Dark mode support
-- No internet permission — fully offline
-- Add and delete accounts easily
+Hardware-Backed Encryption
+The keys are never stored in plain text. They are encrypted using AES and managed by the Android Keystore System for maximum protection.
 
----
+Biometric Security
+To protect the codes from local unauthorized access ,it has integrated biometric authentication including fingerprint and pattern lock.
+
+Offline by Design
+The application requires zero internet permissions.
+
+QR Code Integration
+Quickly import accounts by scanning QR codes or by manually entering the details.
+
+Backup and Migration
+Includes functionality to securely export and import the accounts allowing for safe backups and easy migration between devices.
 
 ## Tech Stack
 
-- **Language**: Kotlin
-- **Architecture**: MVVM + Repository Pattern
-- **UI**: Material Design 3, ViewBinding
-- **Jetpack**: Room, ViewModel, LiveData, Navigation Component
-- **DI**: Hilt
-- **Security**: Android Keystore, Biometric API
-- **Async**: Coroutines
+AuthEase is built using modern Android development tools and patterns:
 
----
+- Language: Kotlin
+- Architecture: MVVM (Model-View-ViewModel) + Repository Pattern
+- UI Framework: Material Design 3 with ViewBinding
+- Database: Room for local persistence
+- Dependency Injection: Hilt
+- Security: Android Keystore API and Biometric API
+- Concurrency: Kotlin Coroutines and Flow
 
 ## Getting Started
 
-```bash
-git clone https://github.com/Jyotishmaan-Deka/authease.git
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Jyotishmaan-Deka/authease.git
+   ```
+2. Open the project in Android Studio.
+3. Sync the Gradle files and run the application on an Android device or emulator (API Level 28 or higher).
 
-Open in Android Studio, let Gradle sync, then run on a device or emulator (API 28+).
+## Project Organization
 
----
+The codebase is structured to be modular and easy to navigate:
 
-## How to Add an Account
-
-1. Tap **+** on the home screen
-2. Enter the service name, your account/email, and the base32 secret key provided by the service
-3. Tap **Add** — the code starts generating immediately
-
-Codes refresh every 30 seconds automatically.
-
----
-
-## Project Structure
-
-```
-com.deadlyord.authease/
-├── auth/        # TOTP logic & crypto
-├── db/          # Room database
-├── di/          # Hilt modules
-├── ui/          # Fragments, Adapter, MainActivity
-└── utils/       # Helper extensions
-```
-
----
-
-## Roadmap
-
-- QR code scanning
-- Account import/export
-- HOTP support
----
+- auth: Contains the TOTP generation logic and hardware encryption implementation.
+- db: Handles local data persistence layer using Room.
+- di: Hilt modules for dependency injection.
+- ui: All user interface components, including Fragments, ViewModels, and Adapters.
+- utils: Common helper functions, extension properties, and QR parsing logic.
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
